@@ -74,7 +74,7 @@
 	 	$("#btn3").click(function() {
 			$("#table").empty();
 			$.ajax({
-				url : "/MyController02",
+				url : "/MyController03",
 				methode : "post",
 				dataType : "xml",
 				success : function(data) {
@@ -83,9 +83,58 @@
 					table += "</thead><tbody>";
 					$(data).find("product").each(function(){
 						table +="<tr>";
-						table +="<td>" + $(this).find("name").text()+"</td>";
-						table +="<td>" + $(this).find("price").text()+"</td>";
+						table +="<td>" + $(this).attr("name")+"</td>";
+						table +="<td>" + $(this).attr("price")+"</td>";
 						table +="</tr>";
+					});
+					
+					table +="</tbody>";
+					$("#table").append(table);
+					
+				},
+				error : function() {
+					alert("읽기실패");
+				}
+			});
+		});
+	 	$("#btn4").click(function() {
+			$("#table").empty();
+			$.ajax({
+				url : "/MyController04",
+				methode : "post",
+				dataType : "xml",
+				success : function(data) {
+					var table = "<thead>";
+					table += "<tr><th>상품명</th><th>가격</th><tr>";
+					table += "</thead><tbody>";
+					$(data).find("product").each(function(){
+						table +="<tr>";
+						table +="<td>" + $(this).text()+"</td>";
+						table +="<td>" + $(this).attr("price")+"</td>";
+						table +="</tr>";
+					});
+					
+					table +="</tbody>";
+					$("#table").append(table);
+					
+				},
+				error : function() {
+					alert("읽기실패");
+				}
+			});
+		});
+	 	$("#btn5").click(function() {
+			$("#table").empty();
+			$.ajax({
+				url : "/MyController05",
+				methode : "post",
+				dataType : "json",
+				success : function(data) {
+					var table = "<thead>";
+					table += "<tr><th>상품명</th><th>가격</th><tr>";
+					table += "</thead><tbody>";
+					$.each(data, function(k,v) {
+						table += "<tr><td>"+ v["name"]+"</td><td>"+this["price"]+"</td></tr>";
 					});
 					
 					table +="</tbody>";
